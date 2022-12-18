@@ -1,0 +1,48 @@
+html, body {
+	height: 100%;
+}
+
+#page-content {
+	flex: 1 0 auto;
+}
+
+#sticky-footer {
+	flex-shrink: none;
+	margin-top: auto;
+}
+
+.spring-green-ligth {
+	color: #212529;
+}
+
+.spring-green-dark {
+	color:  #212529;
+}
+
+.btn,
+.btn:active {
+	color: white;
+	background-color:  #212529;
+	border-radius: 0;
+	border-color:  #212529;
+}
+
+.btn:hover {
+	color: white;
+	background-color:  #212529;
+	border-color:  #212529;
+}
+
+/*<!--Bootstrap Custom checkbox-->*/
+.custom-control-input:checked ~.custom-control-label::before {
+	border-color:  #212529;
+	background-color:  #212529;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+	content: none;
+}
+
+.breadcrumb-item.active{
+	color:  #212529;
+}

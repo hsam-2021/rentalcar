@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="fragments/header :: headerFragment">
+	<title id="pageTitle">RentCar | Companies</title>
+</head>
+
+
+<body>
+<div class="container bg-light">
+
+    <!-- NAVBAR GENERAL SIN LOGIN-->
+
+    <!--TODO cambiar origen logo navbar -->
+    <nav class="row navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.html">
+            <img src="/images/logo_baja.jpg" width="100" height="100" alt="RentCar company logo">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarSupportedContent text-success">
+            <ul class="navbar-nav nav-pills navbar-left d-flex flex-row">
+                <li class="nav-item  mr-3">
+                    <a class="nav-link" href="/index.html">Home</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="/fleet/index.html">Our fleet</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/offices/index.html">Our offices</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right d-flex flex-row-reverse">
+                <li class="nav-item active mr-3">
+                    <a class="nav-link" href="/companies/index.html">Companies<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/login/index.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- COMPANIES API INFO-->
+
+    <div class="row">
+        <div class="col-12 mt-5" id="apiforcompaniesinfo">
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris cursus mattis molestie a iaculis. Cursus sit amet
+                dictum sit amet justo donec enim diam. Diam ut venenatis tellus in metus vulputate eu. Eros donec ac odio tempor orci dapibus. Porta lorem mollis aliquam ut. Faucibus pulvinar
+                elementum integer enim neque volutpat ac tincidunt. Et odio pellentesque diam volutpat commodo sed egestas egestas. Euismod quis viverra nibh cras. Dignissim enim sit amet venenatis
+                urna cursus eget nunc scelerisque. Fermentum iaculis eu non diam phasellus. Sem et tortor consequat id porta nibh. Turpis nunc eget lorem dolor. Mauris pharetra et ultrices neque. Sed
+                vulputate odio ut enim blandit. Dignissim suspendisse in est ante in. Mi quis hendrerit dolor magna eget est lorem. Eget egestas purus viverra accumsan in nisl nisi. Diam quam nulla
+                porttitor massa.</p>
+
+            <p>Ultrices tincidunt arcu non sodales. Pharetra magna ac placerat vestibulum lectus mauris. Suspendisse sed nisi lacus sed viverra tellus in hac. Morbi tristique senectus et netus et
+                malesuada fames ac turpis. Non consectetur a erat nam at lectus urna duis convallis. Viverra tellus in hac habitasse platea dictumst vestibulum rhoncus est. Nulla facilisi nullam
+                vehicula ipsum. Morbi blandit cursus risus at ultrices. Aliquet enim tortor at auctor. Neque laoreet suspendisse interdum consectetur libero id faucibus nisl. Elit scelerisque mauris
+                pellentesque pulvinar pellentesque habitant morbi tristique. Dignissim cras tincidunt lobortis feugiat vivamus at. Nisl condimentum id venenatis a. Dignissim suspendisse in est ante in
+                nibh.</p>
+
+            <p>Sodales neque sodales ut etiam sit amet nisl. In cursus turpis massa tincidunt. Posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Placerat orci nulla pellentesque
+                dignissim enim sit amet venenatis. Id velit ut tortor pretium viverra suspendisse potenti. Sapien pellentesque habitant morbi tristique senectus et netus et. Est placerat in egestas
+                erat imperdiet sed euismod. Est ultricies integer quis auctor elit sed vulputate mi sit. Consequat semper viverra nam libero justo laoreet. A diam sollicitudin tempor id eu nisl nunc
+                mi ipsum.</p>
+
+        </div>
+    </div>
+
+    <!-- FOOTER COMÚN A TODAS LAS PÁGS-->
+
+    <footer class="row p-2 nav bg-dark text-success">
+        <div class="col-6 float-left">
+            <ul class="nav contact-info justify-content-start">
+                <li class="nav-item"><a class="nav-link" href=".">Customer Service </a></li>
+                <li class="nav-item"><a class="nav-link" href="."> Privacy </a></li>
+                <li class="nav-item"><a class="nav-link" href="."> Terms and Conditions </a></li>
+            </ul>
+        </div>
+
+        <div class="col-6">
+            <ul class="social-icons nav justify-content-end">
+                <li class="nav-item"><a class="nav-link" href="."><i class="fab fa-facebook-f"></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="."><i class="fab fa-twitter"></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="."><i class="fab fa-instagram"></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="."><i class="fab fa-pinterest"></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="."><i class="fab fa-blogger-b"></i></a></li>
+            </ul>
+        </div>
+
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</div>
+</body>
+</html>

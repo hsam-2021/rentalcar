@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+<title>Extras</title>
+</head>
+
+<div layout:fragment="page_content" id="page_content" class="container h-100 bg-white overflow-hidden">
+
+	<!-- ESTADO DEL PROCESO DE RESERVA -->
+
+	<div class="d-flex justify-content-center py-3">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb purple lighten-4 bg-white">
+				<li class="breadcrumb-item"><strong class="black-text">Vehicle selection</strong><i class="fas fa-angle-right mx-2" aria-hidden="true"></i></li>
+				<li class="breadcrumb-item active"><strong class="black-text">Extras</strong><i class="fas fa-angle-right mx-2" aria-hidden="true"></i></li>
+				<li class="breadcrumb-item"><strong>Driver details</strong><i class="fas fa-angle-right mx-2" aria-hidden="true"></i></li>
+				<li class="breadcrumb-item"><strong>Booking confirmation</strong></li>
+			</ol>
+		</nav>
+	</div>
+
+
+	<!-- MENÚ PAG. INDEX DATOS SELECCIONADOS DE HOME -->
+
+	<nav class="row p-3" id="homeDataSelectedNames">
+		<div class="col-3 text-center">
+			<i class="fas fa-map-marker-alt"></i> Pickup Office
+		</div>
+		<div class="col-3 text-center">
+			<i class="fas fa-map-marker-alt"></i> Delivery Office
+		</div>
+		<div class="col-3 text-center">
+			<i class="far fa-calendar-alt"></i> Pickup Date
+		</div>
+		<div class="col-3 text-center">
+			<i class="far fa-calendar-alt"></i> Delivery Date
+		</div>
+	</nav>
+
+
+	<nav class="row px-3" id="homeDataSelectedValues">
+		<div class="col-3 text-center" th:text="${session.officeName}"></div>
+		<div class="col-3 text-center" th:text="${session.officeReturnName}"></div>
+		<div class="col-3 text-center">
+			<span th:text="${#dates.format(session.reservation.initDate, 'dd-MM-yyyy')}"></span>
+		</div>
+		<div class="col-3 text-center">
+			<span th:text="${#dates.format(session.reservation.finalDate, 'dd-MM-yyyy')}"></span>
+		</div>
+	</nav>
+
+	<!-- CAR LIST. SAME TABLE AS VEHICLE SELECTION PAGE -->
+
+
+	<div class="col-12">
+		<table class="table table-borderless table-striped mt-5 mb-2">
+			<tbody>
+				<tr class="row mb-3">
+					<td class="col-12 col-md-6">
+						<div class="h-100 d-flex align-items-center flex-column p-3">
+							<img style="max-width: 320px;" class="my-auto" th:src="@{${session.car.photo}}" />
+						</div>
+					</td>
+					<td class="col-12 col-md-4">
+						<div class="p-3">
+							<h2 th:text="${session.car.marca}"></h2>
+							<strong class="pb-3 d-block" th:text="${session.car.model}"></strong>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item bg-transparent text-dark">Transmission: <span th:text="${session.car.transmission}"></span></li>
+								<li class="list-group-item bg-transparent text-dark">AC: <span th:if="${session.car.ac} == true" th:text="Yes"></span> <span th:if="${session.car.ac} != true" th:text="No"></span>
+								</li>
+								<li class="list-group-item bg-transparent text-dark">Seats: <span th:text="${session.car.seats}"></span></li>
+								<li class="list-group-item bg-transparent text-dark">Doors: <span th:text="${session.car.doors}"></span></li>
+								<li class="list-group-item bg-transparent text-dark">Suitcases: <span th:text="${session.car.suitCases}"></span></li>
+							</ul>
+						</div>
+
+					</td>
+					<td class="col-12 col-md-2">
+						<div class="h-100 d-flex align-items-end flex-column p-3">
+							<div class="h-100 d-flex align-items-center">
+								<Strong th:inline="text"> $[[${session.car.category.priceBase}]] <small class="float-right pr-2">&nbsp per day</small></strong>
+							</div>
+							<!-- 								<a th:href="@{selectCar(id=${car.idCar})}" class="btn btn-sm font-weight-bold mt-auto">Choose</a> -->
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- TABLA LISTADO EXTRAS PENDIENTE -->
+
+
+	<!-- extras CATEGORIA-->
+	<form class="row" th:action="@{/reservation/extrasconfig}" method="post">
+
+		<h2 class="col-12">Extras</h2>
+
+		<div class="col-12 col-lg-6">
+			<strong class="py-3 d-block">Insurance</strong>
+			<ul class="list-group list-group-flush text-dark">
+				<li class="list-group-item bg-transparent">
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input" id="baseInsurance" name="insurance" value="basicInsurance" checked>
+						<label class="custom-control-label w-100 px-3" for="baseInsurance"> <span class="pl-2 ml-1">Basic third party insurance</span> <span class="float-right"
+							th:text="${session.car.category.priceBaseInsurance} + USD"></span>
+						</label>
+					</div>
+				</li>
+				<li class="list-group-item bg-transparent">
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input" id="topInsurance" name="insurance" value="topInsurance">
+						<label class="custom-control-label w-100 px-3" for="topInsurance"> <span class="pl-2 ml-1">All risks covering insurance</span> <span class="float-right"
+							th:text="${session.car.category.priceTopInsurance} + USD"></span>
+						</label>
+					</div>
+				</li>
+				<li class="list-group-item bg-transparent ">
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="custom-control-input m-3" value="priceTireAndGlassProtection" id="priceTireAndGlassProtection" name="priceTireAndGlassProtection">
+						<label class="custom-control-label w-100 px-3" for="priceTireAndGlassProtection">Tire and glass protection<span class="float-right"
+							th:text="${session.car.category.priceTireAndGlassProtection} + USD"></span></label>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Extras comunes -->
+
+		<div class="col-12 col-lg-6">
+			<strong class="py-3 d-block">Other Extras</strong>
+			<ul class="list-group list-group-flush text-dark" th:each="extra:${extras}">
+
+				<li class="list-group-item bg-transparent">
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="custom-control-input m-3" th:value="${extra.idExtra}" name="idExtra" th:id="${extra.idExtra}">
+						<label class="custom-control-label w-100 px-3" th:for="${extra.idExtra}" th:inline="text"> [[${extra.descriptionExtra}]]<span class="float-right" th:text="${extra.price} + USD"></span></label>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="col-12 text-center py-5">
+			<button type="submit" class="btn btn-lg">Continue</button>
+		</div>
+
+	</form>
+</div>
+<th:block layout:fragment="scripts">
+	<script type="text/javascript">
+		console.log('Hello World');
+	</script>
+</th:block>

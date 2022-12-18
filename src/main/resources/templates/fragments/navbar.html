@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="navbar">
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<div class="container">
+			<a class="navbar-brand py-0" href="/"> <img src="/images/logo_alpha.png" width="150" height="60" alt="RentCar company logo">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" href="/fleet">Inventory <span class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link" th:if="${session.client != null}" href="/reservationDetails">My Booking <span class="sr-only">(current)</span></a></li>
+				</ul>
+				<ul class="navbar-nav ml-auto mt-2 mt-md-0">
+				    <li class="nav-item">
+                    	<a class="nav-link pr-0" th:if="${session.client == null}" href="/user/login"><i class="fas fa-user-circle mr-2"></i>Login</a>
+                    	<div th:if="${session.client != null}">
+							<a class="nav-link pr-0" href="#"><i
+								class="fas fa-user-circle mr-2"></i><span
+								th:text="${session.client.userName}"></span></a>
+							<form class="" th:action="@{/user/logout}">
+								<button type="submit">Logout</button>
+							</form>
+						</div>
+					</li>				
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+<title>Register</title>
+</head>
+
+<div layout:fragment="page_content" id="page_content" class="container h-100 bg-white overflow-hidden">
+
+
+	<!-- NEW REGISTRATION FORM -->
+
+	<div class="row align-items-center h-100">
+		<div class="col-sm-9 col-md-7 col-lg-7 mx-auto">
+			<div class="card my-5">
+				<div class="card-body">
+					<h5 class="card-title text-center">Register</h5>
+					<form th:action="@{/user/registration}" th:object="${client}" method="post">
+						<div class="row form-row px-0">
+							<div class="form-group col-lg-6">
+								<label for="inputName">First Name</label>
+								<input type="text" id="inputName" name="name" class="form-control" placeholder="First Name" required autofocus>
+							</div>
+
+							<div class="form-group col-lg-6">
+								<label for="inputSurname">Last Name</label>
+								<input type="text" id="inputSurname" name="surname" class="form-control" placeholder="Last Name" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputAddress">Postal Address</label>
+							<input type="text" id="inputAddress" name="address" class="form-control" placeholder="Postal Address" required>
+						</div>
+						<div class="row form-row px-0">
+							<div class="form-group col-lg-4">
+								<label for="inputPostCode">Postal Code</label>
+								<input type="text" id="inputPostCode" name="postCode" class="form-control" placeholder="Postal Code" required autofocus>
+							</div>
+							<div class="form-group col-lg-4">
+								<label for="inputCity">City</label>
+								<input type="text" id="inputCity" name="city" class="form-control" placeholder="City" required autofocus>
+							</div>
+							<div class="form-group col-lg-4">
+								<label for="inputCountry">Country</label>
+								<input type="text" id="inputCountry" name="country" class="form-control" placeholder="Country" required autofocus>
+							</div>
+						</div>
+						<div class="row form-row px-0">
+							<div class="form-group col-lg-6">
+								<label for="inputPhoneNumber">Phone Number</label>
+								<input type="text" id="inputPhoneNumber" name="phoneNumber" class="form-control" placeholder="Phone Number" required autofocus>
+							</div>
+
+							<div class="form-group col-lg-6">
+								<label for="inputID">ID Number</label>
+								<input type="text" id="inputID" name="idNumber" class="form-control" placeholder="ID Number" required>
+							</div>
+
+						</div>
+						<div class="form-group">
+							<label for="inputEmail">Email</label>
+							<input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" required>
+						</div>
+						<div class="row form-row px-0">
+							<div class="form-group col-lg-6">
+								<label for="inputUsername">Username</label>
+								<input type="text" id="inputUsername" name="userName" class="form-control" placeholder="Username" required autofocus>
+								<small th:if="${session.error_usernameTaken != null}" th:text="${session.error_usernameTaken}" id="passwordHelp" class="text-danger"></small>
+							</div>
+						</div>
+						<div class="row form-row px-0">
+							<div class="form-group col-lg-6">
+								<label for="inputPassword">Password</label>
+								<input type="password" id="inputPassword" name=password class="form-control" placeholder="Password" required>
+							</div>
+							<div class="form-group col-lg-6">
+								<label for="inputPassword">Confirm Password</label>
+								<input type="password" id="confirmPassword" name=confirmPassword class="form-control" placeholder="Confirm Password" required>
+								<small th:if="${session.errorMessagePassMismatch != null}" th:text="${session.errorMessagePassMismatch}" id="passwordMismatchHelp" class="text-danger"></small>
+							</div>
+						</div>
+						<div class="form-group pl-4">
+							<input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required>
+							<label class="form-check-label" for="defaultCheck1"> I will be 18 years or oder at the time of the rental. </label>
+						</div>
+						<button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"> <i class="fas fa-user-circle mr-2"></i> Register
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<th:block layout:fragment="scripts">
+	<script type="text/javascript">
+		console.log('Hello World');
+	</script>
+</th:block>

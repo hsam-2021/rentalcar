@@ -1,0 +1,29 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.safe.com/hsap/domainobjects/services"
+	xmlns:tns="http://www.safe.com/hsap/domainobjects/services"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:version="2.0"
+	elementFormDefault="qualified">
+	<element name="updateReservation">
+		<complexType>
+			<sequence>
+				<element name="startDate" type="date" minOccurs="1"
+					maxOccurs="1" />
+				<element name="endDate" type="date" minOccurs="1"
+					maxOccurs="1" />
+				<element name="officePickCode" type="string" maxOccurs="1" />
+				<element name="officeReturnCode" type="string" maxOccurs="1" />
+				<element name="idReservation" type="long" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+	<element name="deleteReservation">
+		<complexType>
+			<sequence>
+				<element name="idReservation" type="long" minOccurs="1"
+					maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+</schema>
+	

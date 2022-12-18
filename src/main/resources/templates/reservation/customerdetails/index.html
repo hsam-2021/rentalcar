@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+<title>Driver Details</title>
+</head>
+
+<div layout:fragment="page_content" id="page_content" class="container h-100 bg-white overflow-hidden">
+
+	<!-- ESTADO DEL PROCESO DE RESERVA -->
+
+	<div class="d-flex justify-content-center py-3">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb purple lighten-4 bg-white">
+				<li class="breadcrumb-item"><strong class="black-text">Vehicle selection</strong><i class="fas fa-angle-right mx-2" aria-hidden="true"></i></li>
+				<li class="breadcrumb-item"><strong class="black-text">Extras</strong><i class="fas fa-angle-right mx-2" aria-hidden="true"></i></li>
+				<li class="breadcrumb-item active"><strong>Driver details</strong><i class="fas fa-angle-right mx-2" aria-hidden="true"></i></li>
+				<li class="breadcrumb-item"><strong>Booking confirmation</strong></li>
+			</ol>
+		</nav>
+	</div>
+
+
+	<!-- Si el usuario está logeado, mostramos: -->
+
+	<div th:if="${session.client != null}" class="row align-items-center">
+		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+			<div class="card my-5">
+				<div class="card-body">
+					<h5 class="card-title text-center">Driver Details</h5>
+					<div class="form-group">
+						<label>First Name</label>
+						<span class="px-3 py-2 d-block text-muted bg-light" th:text="${session.client.name}"></span>
+					</div>
+					<div class="form-group">
+						<label>Last Name</label>
+						<span class="px-3 py-2 d-block text-muted bg-light" th:text="${session.client.surname}"></span>
+					</div>
+					<div class="form-group">
+						<label>ID Number</label>
+						<span class="px-3 py-2 d-block text-muted bg-light" th:text="${session.client.idNumber}"></span>
+					</div>
+					<div class="form-group">
+						<label>Phone Number</label>
+						<span class="px-3 py-2 d-block text-muted bg-light" th:text="${session.client.phoneNumber}"></span>
+					</div>					
+					<div class="form-group">
+						<label>E-mail</label>
+						<span class="px-3 py-2 d-block text-muted bg-light" th:text="${session.client.email}"></span>
+					</div>
+					<a class="btn btn-lg btn-primary btn-block text-uppercase" href="/reservation/confirmation">Confirm</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Si el usuario no está logeado, mostramos: -->
+
+	<div th:if="${session.client == null}" class="row align-items-center">
+		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+			<div class="card my-5">
+				<div class="card-body">
+					<h5 class="card-title text-center">Login</h5>
+					<form class="" th:action="@{/user/login}" th:object="${login}" method="post">
+						<div class="form-group">
+							<label for="inputEmail">Username</label>
+							<input type="text" id="userName" name="userName" class="form-control" placeholder="Username" required autofocus>
+						</div>
+
+						<div class="form-group">
+							<label for="inputPassword">Password</label>
+							<input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+							<small th:if="${session.error_userAuthentification != null}" th:text="${session.error_userAuthentification}" id="passwordHelp" class="text-danger"></small>
+						</div>
+
+						<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+						<hr class="my-4">
+						<button type="button" class="btn btn-lg btn-google btn-block text-uppercase" data-toggle="modal" data-target="#registrationModalForm">
+							<i class="fas fa-user-circle mr-2"></i> Register
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- REGISTER MENU. SAME FORM AS REGISTRATION PAGE BUT IN A MODAL SECTION -->
+	<div class="modal fade" id="registrationModalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Register</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form th:action="@{/reservation/customerdetails/registration}" th:object="${client}" method="post">
+						<div class="row form-row px-0">
+							<div class="form-group col-lg-6">
+								<label for="inputName">First Name</label>
+								<input type="text" id="inputName" name="name" class="form-control" placeholder="First Name" required autofocus>
+							</div>
+
+							<div class="form-group col-lg-6">
+								<label for="inputSurname">Last Name</label>
+								<input type="text" id="inputSurname" name="surname" class="form-control" placeholder="Last Name" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputAddress">Postal Address</label>
+							<input type="text" id="inputAddress" name="address" class="form-control" placeholder="Postal Address" required>
+						</div>
+						<div class="row form-row px-0">
+							<div class="form-group col-lg-4">
+								<label for="inputPostCode">Postal Code</label>
+								<input type="text" id="inputPostCode" name="postCode" class="form-control" placeholder="Postal Code" required autofocus>
+							</div>
+							<div class="form-group col-lg-4">
+								<label for="inputCity">City</label>
+								<input type="text" id="inputCity" name="city" class="form-control" placeholder="City" required autofocus>
+							</div>
+							<div class="form-group col-lg-4">
+								<label for="inputCountry">Country</label>
+								<input type="text" id="inputCountry" name="country" class="form-control" placeholder="Country" required autofocus>
+							</div>
+						</div>
+						<div class="row form-row px-0">
+							<div class="form-group col-lg-6">
+								<label for="inputPhoneNumber">Phone Number</label>
+								<input type="text" id="inputPhoneNumber" name="phoneNumber" class="form-control" placeholder="Phone Number" required autofocus>
+							</div>
+
+							<div class="form-group col-lg-6">
+								<label for="inputID">ID Number</label>
+								<input type="text" id="inputID" name="idNumber" class="form-control" placeholder="ID Number" required>
+							</div>
+
+						</div>
+						<div class="form-group">
+							<label for="inputEmail">Email</label>
+							<input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" required>
+						</div>
+						<div class="row form-row px-0">
+							<div class="form-group col-lg-6">
+								<label for="inputUsername">Username</label>
+								<input type="text" id="inputUsername" name="userName" class="form-control" placeholder="Username" required autofocus>
+								<small th:if="${session.error_usernameTaken != null}" th:text="${session.error_usernameTaken}" id="passwordHelp" class="text-danger"></small>
+							</div>
+						</div>
+						<div class="row form-row px-0">
+							<div class="form-group col-lg-6">
+								<label for="inputPassword">Password</label>
+								<input type="password" id="inputPassword" name=password class="form-control" placeholder="Password" required>
+							</div>
+							<div class="form-group col-lg-6">
+								<label for="inputPassword">Confirm Password</label>
+								<input type="password" id="confirmPassword" name=confirmPassword class="form-control" placeholder="Confirm Password" required>
+								<small th:if="${session.errorMessagePassMismatch != null}" th:text="${session.errorMessagePassMismatch}" id="passwordMismatchHelp" class="text-danger"></small>
+							</div>
+						</div>
+						<div class="form-group pl-4">
+							<input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required>
+							<label class="form-check-label" for="defaultCheck1"> I will be 18 years or oder at the time of the rental. </label>
+						</div>
+						<button class="btn btn-lg btn-google btn-block text-uppercase" type="submit">
+							<i class="fas fa-user-circle mr-2"></i> Register
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<th:block layout:fragment="scripts">
+	<script th:if="${session.error_usernameTaken != null AND session.client == null}" type="text/javascript">
+		$(window).on('load', function() {
+			$('#registrationModalForm').modal('show');
+		});
+	</script>
+	
+	<script th:if="${session.errorMessagePassMismatch != null AND session.client == null}" type="text/javascript">
+		$(window).on('load', function() {
+			$('#registrationModalForm').modal('show');
+		});
+	</script>
+</th:block>
+

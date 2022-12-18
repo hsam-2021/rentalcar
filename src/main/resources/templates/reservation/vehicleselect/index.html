@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+<title>Select Vehicle</title>
+</head>
+
+<div layout:fragment="page_content" id="page_content" class="container h-100 bg-white overflow-hidden">
+
+	<!-- ESTADO DEL PROCESO DE RESERVA -->
+
+	<div class="d-flex justify-content-center py-3">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb purple lighten-4 bg-white">
+				<li class="breadcrumb-item active"><strong class="black-text">Vehicle selection</strong><i class="fas fa-angle-right mx-2" aria-hidden="true"></i></li>
+				<li class="breadcrumb-item"><strong class="black-text">Extras</strong><i class="fas fa-angle-right mx-2" aria-hidden="true"></i></li>
+				<li class="breadcrumb-item"><strong>Driver details</strong><i class="fas fa-angle-right mx-2" aria-hidden="true"></i></li>
+				<li class="breadcrumb-item"><strong>Booking confirmation</strong></li>
+			</ol>
+		</nav>
+	</div>
+
+
+	<!-- MENÚ PAG. INDEX DATOS SELECCIONADOS DE HOME -->
+
+
+	<nav class="row" id="homeDataSelectedNames">
+		<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+			<i class="fas fa-map-marker-alt"></i> Pickup Office
+			<div class="clear pl-3" th:text="${session.officeName}"></div>
+		</div>
+		<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+			<i class="fas fa-map-marker-alt"></i> Delivery Office
+			<div class="clear pl-3" th:text="${session.officeReturnName}"></div>
+		</div>
+		<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+			<i class="far fa-calendar-alt"></i> Pickup Date
+			<div class="clear pl-3">
+				<span th:text="${#dates.format(session.reservation.initDate, 'dd-MM-yyyy')}"></span>
+			</div>
+		</div>
+		<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+			<i class="far fa-calendar-alt"></i> Delivery Date
+			<div class="clear pl-3">
+				<span th:text="${#dates.format(session.reservation.finalDate, 'dd-MM-yyyy')}"></span>
+			</div>
+		</div>
+		<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+			<button type="button" class="btn w-100" data-toggle="collapse" data-target="#importHomeDataSelectionForm" aria-expanded="false" aria-controls="importHomeDataSelectionForm">Change</button>
+		</div>
+	</nav>
+
+	<!-- MENÚ PAG. HOME PARA CAMBIAR DATOS TRAS BOTÓN CHANGE -->
+
+	<div class="collapse" id="importHomeDataSelectionForm">
+		<form class="pb-5 row pt-3" th:action="@{/reservation/vehicleselect}" th:object="${session.reservation}" method="post">
+			<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+				<div class="form-group">
+					<label for="officeCode">Pickup office:</label> <select id="officeCode" name="officeCode" class="form-control" required>
+						<option value="">Select...</option>
+						<option th:each="office:${offices}" th:value="${office.officeCode}" th:text="${office.officeName}" th:selected="${office.officeCode == session.reservation.officeCode}"></option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+				<div class="form-group">
+					<label for="officeSelection">Delivery office:</label> <select id="officeSelection" name="officeReturnCode" class="form-control">
+						<option value="">Select...</option>
+						<option th:each="office:${offices}" th:value="${office.officeCode}" th:text="${office.officeName}" th:selected="${office.officeCode == session.reservation.officeCode}"></option>
+					</select>
+				</div>
+			</div>
+			<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+				<div class="form-group">
+					<label for="initDate">Pickup date:</label>
+					<input class="form-control w-100" type="date" name="initDate" id="initDate" step="1" min="2022-12-17" max="2023-12-17" th:value="${#dates.format(session.reservation.initDate, 'yyyy-MM-dd')}">
+				</div>
+			</div>
+			<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+
+				<div class="form-group">
+					<label for="finalDate">Delivery date:</label>
+					<input class="form-control w-100" type="date" name="finalDate" id="finalDate" step="1" min="202-12-17" max="2023-12-17" th:value="${#dates.format(session.reservation.finalDate, 'yyyy-MM-dd')}">
+					<!-- 				<input type="text" required> -->
+					<div th:if="${session.errorDates != null}">
+						<small class="form-text text-muted" th:text="${session.errorDates}"></small>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+
+				<div class="form-group">
+					<label class="d-none d-lg-block">&nbsp</label>
+					<button type="submit" class="btn float-right w-100">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!-- FILTRO POR CATEGORIA, TRANSMISIÓN Y PRECIO -->
+
+	<div id="carFilterForm">
+		<form th:action="@{/reservation/vehicleselect/filter}" method="post">
+			<div class="form-group form-row mt-5 mb-5">
+				<div class="col-12 col-md-3">
+					<select name="categorySelection" class="form-control" id="categorySelection">
+						<option value="">CATEGORY</option>
+						<option value="CAT_SUP" th:selected="${session.category == 'CAT_SUP'}">PLUS</option>
+						<option value="CAT_MED" th:selected="${session.category == 'CAT_MED'}">STANDARD</option>
+						<option value="CAT_ECO" th:selected="${session.category == 'CAT_ECO'}">ECONOMIC</option>
+					</select>
+				</div>
+				<div class="col-12 col-md-3">
+					<select name="transmissionSelection" class="form-control" id="transmissionSelection">
+						<option value="">TRANSMISSION</option>
+						<option value="AUTOMATIC" th:selected="${session.transmission == 'AUTOMATIC'}">AUTOMATIC</option>
+						<option value="MANUAL" th:selected="${session.transmission == 'MANUAL'}">MANUAL</option>
+					</select>
+				</div>
+				<div class="col-12 col-md-3">
+					<select name="priceOrderSelection" class="form-control" id="priceOrderSelection">
+						<option value="">PRICE ORDER</option>
+						<option value="ASCENDANT" th:selected="${session.priceOrder == 'ASCENDANT'}">ASCENDANT</option>
+						<option value="DESCENDANT" th:selected="${session.priceOrder == 'DESCENDANT'}">DESCENDANT</option>
+					</select>
+				</div>
+				<div class="col-12 col-md-3 text-center">
+					<button type="submit" class="btn w-100">Filter</button>
+				</div>
+
+			</div>
+		</form>
+	</div>
+
+	<!-- TABLA LISTADO COCHES -->
+	<div class="col-12">
+
+		<table class="table table-borderless table-striped my-5">
+
+			<tbody>
+				<tr class="row mb-3" th:each="car:${session.fleet}">
+					<td class="col-12 col-md-6">
+						<div class="h-100 d-flex align-items-center flex-column p-3">
+							<img style="max-width: 320px;" class="my-auto" th:src="@{${car.photo}}" />
+						</div>
+					</td>
+					<td class="col-12 col-md-4">
+						<div class="p-3">
+							<h2 th:text="${car.marca}"></h2>
+							<strong class="pb-3 d-block" th:text="${car.model}"></strong>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item bg-transparent text-dark">Transmission: <span th:text="${car.transmission}"></span></li>
+								<li class="list-group-item bg-transparent text-dark">AC: <span th:if="${car.ac} == true" th:text=" Yes"></span> <span th:if="${car.ac} != true" th:text=" No"></span>
+								</li>
+								<li class="list-group-item bg-transparent text-dark">Seats: <span th:text="${car.seats}"></span></li>
+								<li class="list-group-item bg-transparent text-dark">Doors: <span th:text="${car.doors}"></span></li>
+								<li class="list-group-item bg-transparent text-dark">Suitcases: <span th:text="${car.suitCases}"></span></li>
+							</ul>
+						</div>
+
+					</td>
+					<td class="col-12 col-md-2">
+						<div class="h-100 d-flex align-items-center flex-column p-3">
+							<div class="h-100 d-flex align-items-center">
+								<Strong th:inline="text"> $[[${car.category.priceBase}]] <small class="float-right pr-2">&nbsp per day</small></strong>
+							</div>
+							<a th:href="@{vehicleselect/selectCar(id=${car.idCar})}" class="btn btn-sm mt-auto w-100">Choose</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>
+
+<th:block layout:fragment="scripts">
+	<script type="text/javascript">
+		console.log('Hello World');
+	</script>
+</th:block>

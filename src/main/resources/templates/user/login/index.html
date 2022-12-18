@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+<title>Login</title>
+</head>
+
+<div layout:fragment="page_content" id="page_content"  class="container h-100 overflow-hidden">
+	<div class="row align-items-center h-100">
+		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+			<div class="card my-5">
+				<div class="card-body">
+					<h5 class="card-title text-center">Login</h5>
+					<form class="" th:action="@{/user/login}" th:object="${login}" method="post">
+						<div class="form-group">
+							<label for="inputEmail">Username</label>						
+							<input type="text" id="userName" name="userName" class="form-control" placeholder="Username" required autofocus>
+						</div>
+
+						<div class="form-group">
+							<label for="inputPassword">Password</label>						
+							<input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+							<small th:if="${session.error_userAuthentification != null}" th:text="${session.error_userAuthentification}" id="passwordHelp" class="text-danger"></small>
+						</div>
+					
+						<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+						<hr class="my-4">
+						<a href="/user/registration" class="btn btn-lg btn-google btn-block text-uppercase" type="submit">
+							<i class="fas fa-user-circle mr-2"></i> Register
+						</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

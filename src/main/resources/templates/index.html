@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+<title>Home page</title>
+</head>
+
+<div layout:fragment="page_content" id="page_content" class="container h-100 bg-white overflow-hidden">
+
+	<!-- FORM DE BÚSQUEDA -->
+	<form class="mt-5 mb-5 row" th:action="@{/}" th:object="${session.reservation}" method="post">
+		<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+			<div class="form-group">
+				<label for="officeCode">Pickup office:</label> 
+				<select id="officeCode" name="officeCode" class="form-control" required>
+					<option value="">Select...</option>
+					<option th:each="office:${offices}" th:value="${office.officeCode}" th:text="${office.officeName}" th:selected="${office.officeCode == session.reservation.officeCode}"></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+			<div class="form-group">
+				<label for="officeSelection">Delivery office:</label> 
+				<select id="officeSelection" name="officeReturnCode" class="form-control"required>
+					<option value="">Select...</option>
+					<option th:each="office:${offices}" th:value="${office.officeCode}" th:text="${office.officeName}" th:selected="${office.officeCode == session.reservation.officeCode}"></option>
+				</select>
+			</div>
+		</div>
+		<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+			<div class="form-group">
+				<label for="initDate">Pickup date:</label>
+				<input class="form-control" type="date" name="initDate" id="initDate" step="1" min="2022-12-17" max="2023-12-17" value="2022-12-17" required>
+			</div>
+		</div>
+		<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+
+			<div class="form-group">
+				<label for="finalDate">Delivery date:</label>
+				<input class="form-control" type="date" name="finalDate" id="finalDate" step="1" min="2022-12-17" max="2023-12-17" value="2022-12-17" required>
+				<div th:if="${session.errorDates != null}">
+					<small class="form-text text-muted" th:text="${session.errorDates}"></small>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-lg pb-3 pb-lg-0 overflow-hidden">
+
+			<div class="form-group">
+				<label class="d-none d-lg-block">&nbsp</label>
+				<button type="submit" class="btn float-right w-100">Submit</button>
+			</div>
+		</div>
+	</form>
+
+	<!-- CAROUSEL-->
+
+
+	<div id="carouselHomePage" class="carousel slide carousel-fade pb-5" data-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="images/car_ad_01.jpg" class="d-block w-100" alt="random car ad 01">
+			</div>
+			<div class="carousel-item">
+				<img src="images/car_ad_02.jpg" class="d-block w-100" alt="random car ad 02">
+			</div>
+			<div class="carousel-item">
+				<img src="images/car_ad_03.jpg" class="d-block w-100" alt="random car ad 03">
+			</div>
+		</div>
+
+		<a class="carousel-control-prev" href="#carouselHomePage" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span>
+		</a> <a class="carousel-control-next" href="#carouselHomePage" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span>
+		</a>
+	</div>
+</div>
+
+<th:block layout:fragment="scripts">
+	<script type="text/javascript">
+		console.log('Hello World');
+	</script>
+</th:block>
